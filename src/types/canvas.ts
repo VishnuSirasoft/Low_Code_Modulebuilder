@@ -1,6 +1,6 @@
 export type ComponentType = 'text' | 'input' | 'button' | 'table' | 'form';
 
-export type ComponentWidth = '100' | '50' | '33';
+export type ComponentWidth = '100' | '50' | '35' | '33';
 
 export interface BaseNode {
   id: string;
@@ -12,9 +12,9 @@ export interface TextNode extends BaseNode {
   type: 'text';
   props: {
     width?: ComponentWidth;
+    align?: 'left' | 'center' | 'right';
     text: string;
     variant: 'h1' | 'h2' | 'h3' | 'p';
-    align: 'left' | 'center' | 'right';
     color?: string;
   };
 }
@@ -23,6 +23,7 @@ export interface InputNode extends BaseNode {
   type: 'input';
   props: {
     width?: ComponentWidth;
+    align?: 'left' | 'center' | 'right';
     label: string;
     placeholder: string;
     inputType: 'text' | 'number' | 'select';
@@ -35,6 +36,7 @@ export interface ButtonNode extends BaseNode {
   type: 'button';
   props: {
     width?: ComponentWidth;
+    align?: 'left' | 'center' | 'right';
     label: string;
     variant: 'primary' | 'secondary' | 'danger';
     actionType: 'submit' | 'reset' | 'click';
@@ -45,6 +47,7 @@ export interface TableNode extends BaseNode {
   type: 'table';
   props: {
     width?: ComponentWidth;
+    align?: 'left' | 'center' | 'right';
     columns: { header: string; accessor: string }[];
     dataSourceUrl: string;
   };
@@ -54,6 +57,7 @@ export interface FormNode extends BaseNode {
   type: 'form';
   props: {
     width?: ComponentWidth;
+    align?: 'left' | 'center' | 'right';
     formLabel: string;
     submitUrl: string;
     submitText: string;
@@ -83,9 +87,9 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         type: 'text',
         props: {
           width: '100',
+          align: 'left',
           text: 'Heading / Paragraph Text',
           variant: 'p',
-          align: 'left',
           color: 'var(--text-primary)',
         },
       };
@@ -95,6 +99,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         type: 'input',
         props: {
           width: '100',
+          align: 'left',
           label: 'Text Input Label',
           placeholder: 'Enter text here...',
           inputType: 'text',
@@ -111,6 +116,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         type: 'button',
         props: {
           width: '100',
+          align: 'left',
           label: 'Button Label',
           variant: 'primary',
           actionType: 'click',
@@ -122,6 +128,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         type: 'table',
         props: {
           width: '100',
+          align: 'left',
           columns: [
             { header: 'ID', accessor: 'id' },
             { header: 'Name', accessor: 'name' },
@@ -136,6 +143,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         type: 'form',
         props: {
           width: '100',
+          align: 'left',
           formLabel: 'Form Container',
           submitUrl: 'https://api.example.com/submit',
           submitText: 'Submit Form',

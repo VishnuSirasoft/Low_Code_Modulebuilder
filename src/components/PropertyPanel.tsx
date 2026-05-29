@@ -17,10 +17,10 @@ import { useBuilderStore } from '../store/useBuilderStore';
 // ==========================================
 
 const textSchema = z.object({
-  width: z.enum(['100', '50', '33']).optional(),
+  width: z.enum(['100', '50', '35', '33']).optional(),
   text: z.string().min(1, 'Text is required'),
   variant: z.enum(['h1', 'h2', 'h3', 'p']),
-  align: z.enum(['left', 'center', 'right']),
+  align: z.enum(['left', 'center', 'right']).optional(),
   color: z.string().optional(),
 });
 
@@ -30,7 +30,8 @@ const inputOptionSchema = z.object({
 });
 
 const inputSchema = z.object({
-  width: z.enum(['100', '50', '33']).optional(),
+  width: z.enum(['100', '50', '35', '33']).optional(),
+  align: z.enum(['left', 'center', 'right']).optional(),
   label: z.string().min(1, 'Label is required'),
   placeholder: z.string().optional(),
   inputType: z.enum(['text', 'number', 'select']),
@@ -39,7 +40,8 @@ const inputSchema = z.object({
 });
 
 const buttonSchema = z.object({
-  width: z.enum(['100', '50', '33']).optional(),
+  width: z.enum(['100', '50', '35', '33']).optional(),
+  align: z.enum(['left', 'center', 'right']).optional(),
   label: z.string().min(1, 'Label is required'),
   variant: z.enum(['primary', 'secondary', 'danger']),
   actionType: z.enum(['submit', 'reset', 'click']),
@@ -51,13 +53,15 @@ const tableColumnSchema = z.object({
 });
 
 const tableSchema = z.object({
-  width: z.enum(['100', '50', '33']).optional(),
+  width: z.enum(['100', '50', '35', '33']).optional(),
+  align: z.enum(['left', 'center', 'right']).optional(),
   columns: z.array(tableColumnSchema).min(1, 'At least one column is required'),
   dataSourceUrl: z.string().min(1, 'Data source is required'),
 });
 
 const formSchema = z.object({
-  width: z.enum(['100', '50', '33']).optional(),
+  width: z.enum(['100', '50', '35', '33']).optional(),
+  align: z.enum(['left', 'center', 'right']).optional(),
   formLabel: z.string().min(1, 'Form Label is required'),
   submitText: z.string().min(1, 'Submit text is required'),
   submitUrl: z.string().min(1, 'Submit URL is required'),
@@ -229,7 +233,18 @@ export const PropertyPanel: React.FC = () => {
           <select {...register('width' as any)}>
             <option value="100">Full Width (100%)</option>
             <option value="50">Half Width (50%)</option>
+            <option value="35">Centered Custom (35%)</option>
             <option value="33">One-Third Width (33%)</option>
+          </select>
+        </div>
+
+        {/* GLOBAL COMPONENT ALIGNMENT CONTROL */}
+        <div>
+          <label>Horizontal Alignment</label>
+          <select {...register('align' as any)}>
+            <option value="left">Left Aligned</option>
+            <option value="center">Centered</option>
+            <option value="right">Right Aligned</option>
           </select>
         </div>
         
@@ -253,15 +268,6 @@ export const PropertyPanel: React.FC = () => {
                 <option value="h2">Header 2 (1.4rem)</option>
                 <option value="h3">Header 3 (1.1rem)</option>
                 <option value="p">Paragraph (0.9rem)</option>
-              </select>
-            </div>
-
-            <div>
-              <label>Alignment</label>
-              <select {...register('align')}>
-                <option value="left">Left</option>
-                <option value="center">Center</option>
-                <option value="right">Right</option>
               </select>
             </div>
 

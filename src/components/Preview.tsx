@@ -293,8 +293,21 @@ const PreviewComponentRouter: React.FC<{ node: CanvasNode; children?: React.Reac
   let flexStyle: React.CSSProperties = { width: '100%' };
   if (widthProp === '50') {
     flexStyle = { width: 'calc(50% - 8px)', flexGrow: 0, flexShrink: 0 };
+  } else if (widthProp === '35') {
+    flexStyle = { width: 'calc(35% - 8px)', flexGrow: 0, flexShrink: 0 };
   } else if (widthProp === '33') {
     flexStyle = { width: 'calc(33.33% - 11px)', flexGrow: 0, flexShrink: 0 };
+  }
+
+  // Calculate component horizontal alignment layout margins
+  const alignProp = node.props.align || 'left';
+  let alignStyle: React.CSSProperties = {};
+  if (alignProp === 'center') {
+    alignStyle = { marginLeft: 'auto', marginRight: 'auto' };
+  } else if (alignProp === 'right') {
+    alignStyle = { marginLeft: 'auto', marginRight: 0 };
+  } else if (alignProp === 'left' && widthProp !== '100') {
+    alignStyle = { marginRight: 'auto', marginLeft: 0 };
   }
 
   const renderComponent = () => {
@@ -309,7 +322,7 @@ const PreviewComponentRouter: React.FC<{ node: CanvasNode; children?: React.Reac
   };
 
   return (
-    <div style={{ ...flexStyle, display: 'flex', flexDirection: 'column' }}>
+    <div style={{ ...flexStyle, ...alignStyle, display: 'flex', flexDirection: 'column' }}>
       {renderComponent()}
     </div>
   );
