@@ -1,5 +1,7 @@
 export type ComponentType = 'text' | 'input' | 'button' | 'table' | 'form';
 
+export type ComponentWidth = '100' | '50' | '33';
+
 export interface BaseNode {
   id: string;
   type: ComponentType;
@@ -9,6 +11,7 @@ export interface BaseNode {
 export interface TextNode extends BaseNode {
   type: 'text';
   props: {
+    width?: ComponentWidth;
     text: string;
     variant: 'h1' | 'h2' | 'h3' | 'p';
     align: 'left' | 'center' | 'right';
@@ -19,6 +22,7 @@ export interface TextNode extends BaseNode {
 export interface InputNode extends BaseNode {
   type: 'input';
   props: {
+    width?: ComponentWidth;
     label: string;
     placeholder: string;
     inputType: 'text' | 'number' | 'select';
@@ -30,6 +34,7 @@ export interface InputNode extends BaseNode {
 export interface ButtonNode extends BaseNode {
   type: 'button';
   props: {
+    width?: ComponentWidth;
     label: string;
     variant: 'primary' | 'secondary' | 'danger';
     actionType: 'submit' | 'reset' | 'click';
@@ -39,6 +44,7 @@ export interface ButtonNode extends BaseNode {
 export interface TableNode extends BaseNode {
   type: 'table';
   props: {
+    width?: ComponentWidth;
     columns: { header: string; accessor: string }[];
     dataSourceUrl: string;
   };
@@ -47,6 +53,7 @@ export interface TableNode extends BaseNode {
 export interface FormNode extends BaseNode {
   type: 'form';
   props: {
+    width?: ComponentWidth;
     formLabel: string;
     submitUrl: string;
     submitText: string;
@@ -75,6 +82,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         ...base,
         type: 'text',
         props: {
+          width: '100',
           text: 'Heading / Paragraph Text',
           variant: 'p',
           align: 'left',
@@ -86,6 +94,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         ...base,
         type: 'input',
         props: {
+          width: '100',
           label: 'Text Input Label',
           placeholder: 'Enter text here...',
           inputType: 'text',
@@ -101,6 +110,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         ...base,
         type: 'button',
         props: {
+          width: '100',
           label: 'Button Label',
           variant: 'primary',
           actionType: 'click',
@@ -111,6 +121,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         ...base,
         type: 'table',
         props: {
+          width: '100',
           columns: [
             { header: 'ID', accessor: 'id' },
             { header: 'Name', accessor: 'name' },
@@ -124,6 +135,7 @@ export const createDefaultNode = (type: ComponentType, id: string, parentId: str
         ...base,
         type: 'form',
         props: {
+          width: '100',
           formLabel: 'Form Container',
           submitUrl: 'https://api.example.com/submit',
           submitText: 'Submit Form',
